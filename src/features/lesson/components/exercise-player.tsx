@@ -7,7 +7,7 @@ import { Sizes } from '@/constants/Responsive';
 import { useLessonData } from '@/store/lesson-context';
 import { useLessonStore } from '@/store/lesson-store';
 import * as Analytics from '@/utils/analytics';
-import { useRouter } from 'expo-router';
+import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
     Animated,
@@ -25,7 +25,7 @@ import { StreakHearts } from './streak-hearts';
 import { TypeAnswer } from './type-answer';
 
 export function ExercisePlayer() {
-    const router = useRouter();
+    const navigation = useNavigation();
     const { lesson, translate, getPrompt, getExplanationText } = useLessonData();
 
     const {
@@ -149,8 +149,8 @@ export function ExercisePlayer() {
     }, [currentExerciseIndex, totalExercises, completeLesson, nextExercise, streakIncrement]);
 
     const handleClose = useCallback(() => {
-        router.back();
-    }, [router]);
+        navigation.goBack();
+    }, [navigation]);
 
     const handleRestart = useCallback(() => {
         setUserAnswer(null);
@@ -159,8 +159,8 @@ export function ExercisePlayer() {
 
     const handleGoHome = useCallback(() => {
         resetLesson();
-        router.back();
-    }, [resetLesson, router]);
+        navigation.goBack();
+    }, [resetLesson, navigation]);
 
     // Show completion screen
     if (isComplete) {

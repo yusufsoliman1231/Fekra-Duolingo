@@ -6,9 +6,11 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Colors } from '@/constants/Colors';
 import { rw, Sizes } from '@/constants/Responsive';
+import type { RootStackParamList } from '@/navigations/types';
 import { useLessonData } from '@/store/lesson-context';
 import { useLessonStore } from '@/store/lesson-store';
-import { useRouter } from 'expo-router';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useEffect } from 'react';
 import {
     Animated,
@@ -20,7 +22,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export function HomeScreen() {
-    const router = useRouter();
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     const { lesson, loading, error, locale, setLocale, loadLesson, translate } =
         useLessonData();
     const { isStarted, isComplete, streak, xp, startLesson } = useLessonStore();
@@ -52,7 +54,7 @@ export function HomeScreen() {
         if (lesson) {
             startLesson(lesson);
         }
-        router.push('/lesson');
+        navigation.navigate('Lesson');
     };
 
     const toggleLocale = () => {
