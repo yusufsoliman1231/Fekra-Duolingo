@@ -1,0 +1,24 @@
+appId: com.hanafy.pigment.app.Duolingo
+name: Lesson Start Flow
+tags:
+  - smoke
+  - lesson
+---
+# Launch the app
+- launchApp:
+    clearState: true
+    clearKeychain: true
+
+# Verify the start screen is displayed
+- assertVisible: "Start Lesson"
+- assertVisible: "~3 min"
+
+# Tap to start the lesson
+- tapOn: "Start Lesson"
+
+# Verify we're in the lesson - hearts should be visible
+- assertVisible:
+    text: ".*❤.*"
+    regex: true
+# Verify Check button appears after selecting an answer
+# (This flow just verifies navigation to lesson works)

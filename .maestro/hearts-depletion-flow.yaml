@@ -1,0 +1,71 @@
+appId: com.hanafy.pigment.app.Duolingo
+name: Hearts Depletion Flow
+tags:
+  - hearts
+  - edge-case
+---
+# Test the heart/lives system - intentionally answer wrong
+
+# Launch fresh
+- launchApp:
+    clearState: true
+    clearKeychain: true
+
+- tapOn: "Start Lesson"
+
+# Wait for exercise
+- extendedWaitUntil:
+    visible: "Check"
+    timeout: 5000
+
+# We need to answer incorrectly 3 times to lose all hearts
+# Answer incorrectly by selecting wrong options
+
+# First wrong answer
+- runFlow:
+    when:
+      visible: "Check"
+    commands:
+      - tapOn:
+          index: 2
+      - tapOn: "Check"
+      - extendedWaitUntil:
+          visible: "Continue"
+          timeout: 2000
+      - tapOn: "Continue"
+
+# Second wrong answer
+- runFlow:
+    when:
+      visible: "Check"
+    commands:
+      - tapOn:
+          index: 2
+      - tapOn: "Check"
+      - extendedWaitUntil:
+          visible: "Continue"
+          timeout: 2000
+      - tapOn: "Continue"
+
+# Third wrong answer - should trigger no hearts state
+- runFlow:
+    when:
+      visible: "Check"
+    commands:
+      - tapOn:
+          index: 2
+      - tapOn: "Check"
+      - extendedWaitUntil:
+          visible:
+            anyOf:
+              - "Continue"
+              - "No hearts left!"
+              - "Restart Lesson"
+          timeout: 3000
+
+# Verify the hearts display shows 0 or game over state
+- assertVisible:
+    anyOf:
+      - "0"
+      - "No hearts left!"
+      - "Restart"

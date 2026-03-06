@@ -1,0 +1,41 @@
+appId: com.hanafy.pigment.app.Duolingo
+name: Type Answer Exercise Flow
+tags:
+  - exercise
+  - type-answer
+---
+# Launch app
+- launchApp:
+    clearState: true
+
+- tapOn: "Start Lesson"
+
+# Wait for a type-answer exercise (may need to skip MC exercises)
+# Look for the text input placeholder
+- extendedWaitUntil:
+    visible:
+      anyOf:
+        - "Type your answer..."
+        - "Check"
+    timeout: 5000
+
+# If we see a type answer field, interact with it
+- runFlow:
+    when:
+      visible: "Type your answer..."
+    commands:
+      # Tap on the input field
+      - tapOn: "Type your answer..."
+      # Type an answer
+      - inputText: "hola"
+      # Hide keyboard
+      - hideKeyboard
+      # Check the answer
+      - tapOn: "Check"
+      # Verify feedback
+      - extendedWaitUntil:
+          visible:
+            anyOf:
+              - "Correct!"
+              - "Incorrect"
+          timeout: 3000

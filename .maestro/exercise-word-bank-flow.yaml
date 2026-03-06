@@ -1,0 +1,43 @@
+appId: com.hanafy.pigment.app.Duolingo
+name: Word Bank Exercise Flow
+tags:
+  - exercise
+  - word-bank
+---
+# Test word bank exercise type
+
+# Launch app
+- launchApp:
+    clearState: true
+
+- tapOn: "Start Lesson"
+
+# Wait for exercise
+- extendedWaitUntil:
+    visible:
+      anyOf:
+        - "Check"
+        - "Tap the words to build the answer"
+    timeout: 5000
+
+# Word bank exercises auto-submit, so look for the hint text
+- runFlow:
+    when:
+      visible: "Tap the words"
+    commands:
+      # Tap on word buttons to build the answer
+      # Word bank shows individual words that can be tapped
+      - tapOn:
+          index: 0
+      - tapOn:
+          index: 1
+      - tapOn:
+          index: 2
+      # After tapping enough words, feedback should appear
+      - extendedWaitUntil:
+          visible:
+            anyOf:
+              - "Correct!"
+              - "Incorrect"
+              - "Continue"
+          timeout: 3000

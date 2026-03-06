@@ -1,0 +1,97 @@
+appId: com.hanafy.pigment.app.Duolingo
+name: Lesson Complete Flow - Full Journey
+tags:
+  - e2e
+  - full-journey
+  - smoke
+---
+# Launch fresh
+- launchApp:
+    clearState: true
+    clearKeychain: true
+
+# Start the lesson
+- assertVisible: "Start Lesson"
+- tapOn: "Start Lesson"
+
+# Complete multiple exercises by answering and continuing
+# We loop through answering exercises until completion
+
+# Exercise 1
+- runFlow:
+    when:
+      visible: "Check"
+    commands:
+      - tapOn:
+          index: 0
+      - tapOn: "Check"
+      - extendedWaitUntil:
+          visible: "Continue"
+          timeout: 2000
+      - tapOn: "Continue"
+
+# Exercise 2
+- runFlow:
+    when:
+      visible: "Check"
+    commands:
+      - tapOn:
+          index: 0
+      - tapOn: "Check"
+      - extendedWaitUntil:
+          visible: "Continue"
+          timeout: 2000
+      - tapOn: "Continue"
+
+# Exercise 3
+- runFlow:
+    when:
+      visible: "Check"
+    commands:
+      - tapOn:
+          index: 0
+      - tapOn: "Check"
+      - extendedWaitUntil:
+          visible: "Continue"
+          timeout: 2000
+      - tapOn: "Continue"
+
+# Exercise 4
+- runFlow:
+    when:
+      visible: "Check"
+    commands:
+      - tapOn:
+          index: 0
+      - tapOn: "Check"
+      - extendedWaitUntil:
+          visible:
+            anyOf:
+              - "Continue"
+              - "Lesson Complete!"
+          timeout: 2000
+      - tapOn:
+          anyOf:
+            - "Continue"
+            - "Lesson Complete!"
+
+# Check for completion screen
+- extendedWaitUntil:
+    visible:
+      anyOf:
+        - "Congratulations!"
+        - "Lesson Complete!"
+        - "XP Earned"
+    timeout: 5000
+
+# Verify completion screen elements
+- assertVisible:
+    anyOf:
+      - "XP Earned"
+      - "Streak"
+
+# Go back to home
+- tapOn:
+    anyOf:
+      - "Go Home"
+      - "Restart Lesson"

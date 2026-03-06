@@ -1,0 +1,37 @@
+appId: com.hanafy.pigment.app.Duolingo
+name: Multiple Choice Exercise Flow
+tags:
+  - exercise
+  - multiple-choice
+---
+# Launch app and start lesson
+- launchApp:
+    clearState: true
+
+- tapOn: "Start Lesson"
+
+# Wait for exercise to load
+- extendedWaitUntil:
+    visible: "Check"
+    timeout: 5000
+
+# The first exercise should be visible
+# Tap on one of the answer choices
+- tapOn:
+    text: ".*"
+    index: 0
+    optional: true
+
+# Verify Check button is enabled and tap it
+- tapOn: "Check"
+
+# Verify feedback appears (either correct or incorrect)
+- extendedWaitUntil:
+    visible:
+      anyOf:
+        - "Correct!"
+        - "Incorrect"
+    timeout: 3000
+
+# Tap Continue to go to next exercise
+- tapOn: "Continue"

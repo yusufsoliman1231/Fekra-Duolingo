@@ -1,0 +1,67 @@
+appId: com.hanafy.pigment.app.Duolingo
+name: Lesson Restart Flow
+tags:
+  - lesson
+  - restart
+---
+# Test restarting a lesson
+
+# Launch app
+- launchApp:
+    clearState: true
+
+# Start lesson
+- tapOn: "Start Lesson"
+
+# Complete a few exercises
+- extendedWaitUntil:
+    visible: "Check"
+    timeout: 5000
+
+# Answer one exercise
+- tapOn:
+    index: 0
+- tapOn: "Check"
+- extendedWaitUntil:
+    visible: "Continue"
+    timeout: 2000
+- tapOn: "Continue"
+
+# Close the lesson using the back/close button
+- tapOn:
+    id: "close-button"
+    optional: true
+
+# Or tap the X if it's visible
+- runFlow:
+    when:
+      visible: "✕"
+    commands:
+      - tapOn: "✕"
+
+# Verify we're back at the start screen
+- extendedWaitUntil:
+    visible:
+      anyOf:
+        - "Start Lesson"
+        - "Resume Lesson"
+    timeout: 3000
+
+# Restart if needed
+- runFlow:
+    when:
+      visible: "Resume Lesson"
+    commands:
+      - tapOn: "Resume Lesson"
+
+# Or start fresh
+- runFlow:
+    when:
+      visible: "Start Lesson"
+    commands:
+      - tapOn: "Start Lesson"
+
+# Verify we're back in the lesson
+- extendedWaitUntil:
+    visible: "Check"
+    timeout: 5000
