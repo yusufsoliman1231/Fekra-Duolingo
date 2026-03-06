@@ -44,7 +44,7 @@ This application delivers a comprehensive language learning platform featuring d
 - **React Native** - Cross-platform mobile development
 - **Expo** - Development platform and tooling
 - **TypeScript** - Type-safe code with enhanced developer experience
-- **Expo Router** - File-based navigation system
+- **React Navigation** - Native stack and bottom tab navigation
 
 ### State Management & Data
 
@@ -61,27 +61,31 @@ This application delivers a comprehensive language learning platform featuring d
 ## Project Structure
 
 ```
-├── app/                      # Main application screens and routing
-│   ├── (tabs)/              # Tab-based navigation
-│   ├── lesson.tsx           # Lesson player screen
-│   └── _layout.tsx          # Root layout configuration
-├── features/                 # Feature-based modules
-│   ├── home/                # Home screen features
-│   └── lesson/              # Lesson-related components
-│       └── components/      # Exercise type components
-├── components/              # Reusable UI components
-│   ├── ui/                  # Core UI elements
-│   └── icons/               # Custom icon library
-├── store/                   # State management
-│   ├── lesson-store.ts      # Lesson state with Zustand
-│   └── storage.ts           # Persistent storage utilities
-├── constants/               # App-wide constants and themes
-├── i18n/                    # Internationalization files
-├── types/                   # TypeScript type definitions
-├── utils/                   # Utility functions
-└── assets/                  # Static assets and data
-    ├── data/                # Lesson content and exercises
-    └── images/              # Image assets
+├── App.tsx                   # Root app component
+├── index.ts                  # Entry point (registerRootComponent)
+├── src/
+│   ├── navigations/          # React Navigation setup
+│   │   ├── app-navigator.tsx # NavigationContainer + providers
+│   │   ├── root-navigator.tsx# Root stack (Tabs, Lesson, Modal)
+│   │   ├── tab-navigator.tsx # Bottom tab navigator
+│   │   └── types.ts          # Navigation type definitions
+│   ├── features/             # Feature-based modules
+│   │   ├── home/             # Home screen features
+│   │   └── lesson/           # Lesson-related components
+│   │       └── components/   # Exercise type components
+│   ├── components/           # Reusable UI components
+│   │   ├── ui/               # Core UI elements
+│   │   └── icons/            # Custom icon library
+│   ├── store/                # State management
+│   │   ├── lesson-store.ts   # Lesson state with Zustand
+│   │   └── storage.ts        # Persistent storage utilities
+│   ├── constants/            # App-wide constants and themes
+│   ├── i18n/                 # Internationalization files
+│   ├── types/                # TypeScript type definitions
+│   └── utils/                # Utility functions
+└── assets/                   # Static assets and data
+    ├── data/                 # Lesson content and exercises
+    └── images/               # Image assets
 ```
 
 ## Getting Started
